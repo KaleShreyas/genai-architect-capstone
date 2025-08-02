@@ -33,6 +33,11 @@ Retail Marketplace Agent System
   - `schemas.py` — Pydantic models
   - `openapi/openapi.yaml` — A2A OpenAPI 3.1 spec
 
+- `utils/`
+  - `__init__.py`
+  - `preprocess.py` — Submission pre-processing
+  - `storage.py` — Azure I/O operations
+
 ## Database Layer
 - `db/`
   - `models.py` — ORM schema for catalog/status
