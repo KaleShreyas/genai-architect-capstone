@@ -1,0 +1,1 @@
+"""Converts catalog rows to text/JSON"""
