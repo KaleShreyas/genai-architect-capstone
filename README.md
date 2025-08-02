@@ -9,18 +9,15 @@ Retail Marketplace Agent System
     - `agent.py` — LangGraph logic for content generation
     - `prompts.py` — Prompt templates
     - `image_gen.py` — Calls DALL·E or SD-XL
-    - `tests/test_agent.py`
   - `inspector/`
     - `__init__.py`
     - `agent.py` — Rule checks and scoring
     - `taxonomy.py` — Google Retail Taxonomy logic
     - `rules_loader.py` — Load compliance rules
-    - `tests/test_agent.py`
   - `answer_agent/`
     - `__init__.py`
     - `agent.py` — A2A response logic
     - `formatter.py` — Converts catalog rows to text/JSON
-    - `tests/test_agent.py`
 
 ## Orchestrator
 - `orchestrator/`
@@ -28,7 +25,6 @@ Retail Marketplace Agent System
   - `flow.py` — LangGraph workflow
   - `router.py` — Routing and error handling
   - `service_bus.py` — Human-review queue logic
-  - `tests/test_flow.py`
 
 ## API Layer
 - `api/`
@@ -42,7 +38,6 @@ Retail Marketplace Agent System
   - `models.py` — ORM schema for catalog/status
   - `crud.py` — DB interactions
   - `init_db.py` — Setup script
-  - `migrations/` — Alembic (optional for PostgreSQL)
 
 ## Infrastructure & Deployment
 - `infra/`
@@ -72,4 +67,3 @@ Retail Marketplace Agent System
 - `.gitignore`
 - `README.md`
 - `requirements.txt`
-- `pyproject.toml` — Optional (for Poetry or Pipenv)
