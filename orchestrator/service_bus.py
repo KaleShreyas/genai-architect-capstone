@@ -1,0 +1,1 @@
+"""For edge-case queues"""

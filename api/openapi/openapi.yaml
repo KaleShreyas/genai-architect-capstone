@@ -1,0 +1,116 @@
+openapi: 3.1.0
+info:
+  title: Catalog Answer Agent API
+  version: "1.0.0"
+  description: |
+    Read-only A2A API for accessing approved product listings, including stock, price, and recommendations.
+
+servers:
+  - url: https://api.marketplace.ai/v1
+
+paths:
+  /catalog/{sku}:
+    get:
+      summary: Get product by SKU
+      operationId: getProductBySku
+      parameters:
+        - name: sku
+          in: path
+          required: true
+          description: Unique product SKU
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: Product not found
+
+  /catalog/recommendations:
+    get:
+      summary: Get recommendations based on category or price range
+      operationId: getRecommendations
+      parameters:
+        - name: category
+          in: query
+          schema:
+            type: string
+        - name: price_min
+          in: query
+          schema:
+            type: number
+        - name: price_max
+          in: query
+          schema:
+            type: number
+      responses:
+        "200":
+          description: Recommended products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+  /catalog/search:
+    get:
+      summary: Search approved catalog
+      operationId: searchCatalog
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: Search keyword (title, description, tags)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Matching products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - sku
+        - title
+        - price
+        - availability
+      properties:
+        sku:
+          type: string
+          example: "SKU12345"
+        title:
+          type: string
+          example: "Cotton T-Shirt - Green"
+        description:
+          type: string
+          example: "Soft, breathable cotton with eco-friendly dye."
+        category:
+          type: string
+          example: "Apparel > Tops"
+        price:
+          type: number
+          format: float
+          example: 499.99
+        currency:
+          type: string
+          example: "INR"
+        availability:
+          type: string
+          enum: [in_stock, out_of_stock, limited]
+        image_url:
+          type: string
+          format: uri
+          example: "https://cdn.marketplace.ai/images/sku123.png"
