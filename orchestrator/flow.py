@@ -35,7 +35,8 @@ def trace_with_langfuse(node_name):
 def build_workflow():
     graph = StateGraph(state_type=dict)
 
-    graph.add_node("Crafter", trace_with_langfuse("Crafter"))
+    # graph.add_node("Crafter", trace_with_langfuse("Crafter"))
+    graph.add_node("Crafter", run_crafter)
     graph.add_node("Inspector", trace_with_langfuse("Inspector"))
     graph.add_node("Decision", handle_result)
 

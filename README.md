@@ -72,3 +72,7 @@ Retail Marketplace Agent System
 - `.gitignore`
 - `README.md`
 - `requirements.txt`
+
+# RUN
+cd genai-architect-capstone
+uvicorn api.app:app --host 0.0.0.0 --port 8000

@@ -64,3 +64,23 @@ def get_recommendations(category: Optional[str] = None, price_min: Optional[floa
         cursor.execute(query, tuple(params))
         rows = cursor.fetchall()
         return [dict(r) for r in rows]
+
+def update_crafter_outputs(sku: str, seo_title: str, seo_description: str, attributes_json: str, hero_image_url: str):
+    """
+    Updates the existing catalog row for this SKU with the crafter outputs.
+    Keeps status as-is (draft) so the Inspector can evaluate next.
+    """
+    with get_db_connection() as conn:
+        cursor = conn.cursor()
+        # Ensure columns exist; if not, add them to your schema:
+        # ALTER TABLE catalog ADD COLUMN seo_title TEXT;
+        # ALTER TABLE catalog ADD COLUMN seo_description TEXT;
+        # ALTER TABLE catalog ADD COLUMN attributes_json TEXT;
+        # ALTER TABLE catalog ADD COLUMN image_url TEXT;
+
+        cursor.execute("""
+            UPDATE catalog
+            SET seo_title = ?, seo_description = ?, attributes_json = ?, image_url = ?
+            WHERE sku = ?
+        """, (seo_title, seo_description, attributes_json, hero_image_url, sku))
+        conn.commit()
