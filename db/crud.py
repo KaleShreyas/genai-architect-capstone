@@ -84,3 +84,24 @@ def update_crafter_outputs(sku: str, seo_title: str, seo_description: str, attri
             WHERE sku = ?
         """, (seo_title, seo_description, attributes_json, hero_image_url, sku))
         conn.commit()
+
+
+def update_status(sku: str, status: str):
+    with get_db_connection() as conn:
+        cur = conn.cursor()
+        cur.execute("UPDATE catalog SET status = ? WHERE sku = ?", (status, sku))
+        conn.commit()
+
+def update_inspector_verdict(sku: str, score: int, issues_json: str, aligned_category: str | None):
+    with get_db_connection() as conn:
+        cur = conn.cursor()
+        # Ensure the columns exist; add via migration if needed:
+        # ALTER TABLE catalog ADD COLUMN compliance_score INTEGER;
+        # ALTER TABLE catalog ADD COLUMN compliance_issues TEXT;
+        # ALTER TABLE catalog ADD COLUMN aligned_category TEXT;
+        cur.execute("""
+            UPDATE catalog
+            SET compliance_score = ?, compliance_issues = ?, aligned_category = ?
+            WHERE sku = ?
+        """, (score, issues_json, aligned_category, sku))
+        conn.commit()
